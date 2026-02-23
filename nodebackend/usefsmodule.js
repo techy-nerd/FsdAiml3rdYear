@@ -14,4 +14,41 @@ function writeData(){
     }
     return statusmsg;
 }
-module.exports=writeData;
+function readData(){
+    let statusmsg="";
+    try{
+        const data=fs.readFileSync("student.txt",("utf-8"))
+        statusmsg=data;
+    }
+    catch(e){
+
+    }
+}
+function deleteFile(){
+  try{
+fs.unlinkSync('student.txt')
+statusmsg="File deleted successfully"
+  }
+  catch(e){
+    statusmsg=e
+
+  }
+  return statusmsg
+}
+function copyFile() {
+    let statusmsg = "";
+
+    try {
+        const data = fs.readFileSync("studentcse.json", "utf-8");
+        fs.writeFileSync("copy.json", data);
+
+        statusmsg = "File copied successfully";
+    }
+    catch (e) {
+        statusmsg = "Error is " + e.message;
+    }
+
+    return statusmsg;
+}
+const  obj={writeData,readData,deleteFile,copyFile}
+module.exports=obj;

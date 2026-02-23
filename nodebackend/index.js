@@ -1,6 +1,6 @@
 const http=require('http');
 const sum=require('./fetchData');
-const writeData=require('./usefsmodule')
+const {writeData,readData,deleteFile,copyFile}=require('./usefsmodule')
 const PORT=4007;
 const server=http.createServer( async(req,res)=>{
 //     res.setHeader('Content-Type','text/html');
@@ -8,7 +8,7 @@ const server=http.createServer( async(req,res)=>{
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-     
+    
 if(req.url=='/msg' && req.method=="GET"){
     res.setHeader('Content-Type','text/html');
     res.end("<h1>Welcome message from Node Server</h1>");
@@ -33,7 +33,27 @@ res.setHeader('Content-Type','application/json');
 //    res.setHeader('Content-Type','application/json');
 //     res.end(JSON.stringify({msg:"Post method for data insertion"})); 
 // }
-
+if(req.url=='/readData' && req.method=="GET"){
+  
+res.setHeader('Content-Type','application/json');
+   const sumData=readData();
+     res.end(JSON.stringify({msg:sumData}))
+   
+}
+if(req.url=='/deleteFile' && req.method=="GET"){
+  
+res.setHeader('Content-Type','application/json');
+   const sumData=deleteFile();
+     res.end(JSON.stringify({msg:sumData}))
+   
+}
+if(req.url=='/copyFile' && req.method=="GET"){
+  
+res.setHeader('Content-Type','application/json');
+   const sumData=copyFile();
+     res.end(JSON.stringify({msg:sumData}))
+   
+}
 
 
 })
