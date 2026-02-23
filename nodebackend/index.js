@@ -1,11 +1,11 @@
 const http=require('http');
 const sum=require('./fetchData');
-const {writeData,readData,deleteFile,copyFile}=require('./usefsmodule')
+const {writeData,readData,deleteFile,copyFile,filereadASync}=require('./usefsmodule')
 const PORT=4007;
 const server=http.createServer( async(req,res)=>{
 //     res.setHeader('Content-Type','text/html');
 // res.end("<h2 style=color:red>Hello, Welcome to Node Server</h2>");
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.setHeader('Access-Control-Allow-Origin', '*');
      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     
@@ -52,6 +52,27 @@ if(req.url=='/copyFile' && req.method=="GET"){
 res.setHeader('Content-Type','application/json');
    const sumData=copyFile();
      res.end(JSON.stringify({msg:sumData}))
+   
+}
+if(req.url=='/filereadASync' && req.method=="GET"){
+  
+res.setHeader('Content-Type','application/json');
+   const sumData=await filereadASync();
+     res.end(JSON.stringify({msg:sumData}))
+   
+}
+if(req.url=='/register' && req.method=="POST"){
+     let arr=[]
+     let body=""
+     req.on('data',chunk=>{
+          body+=chunk
+     })
+     req.on('end',()=>{
+          const {name,email,password}=JSON.parse(body);
+          console.log(name)
+     })
+     res.setHeader('Content-Type','application/json');
+     res.end(JSON.stringify({msg:"HI! I am creating register api"}))
    
 }
 

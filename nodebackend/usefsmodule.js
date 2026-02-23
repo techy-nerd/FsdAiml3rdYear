@@ -50,5 +50,15 @@ function copyFile() {
 
     return statusmsg;
 }
-const  obj={writeData,readData,deleteFile,copyFile}
+async function filereadASync(){
+    let statusmsg="";
+    try{
+        statusmsg=await fs1.readFile('student.txt','utf-8')
+    }
+    catch(e){
+        statusmsg=e
+    }
+    return statusmsg
+}
+const  obj={writeData,readData,deleteFile,copyFile,filereadASync}
 module.exports=obj;
