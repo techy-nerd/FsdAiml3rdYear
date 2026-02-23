@@ -1,5 +1,6 @@
 const http=require('http');
 const sum=require('./fetchData');
+const writeData=require('./usefsmodule')
 const PORT=4007;
 const server=http.createServer( async(req,res)=>{
 //     res.setHeader('Content-Type','text/html');
@@ -21,6 +22,13 @@ res.setHeader('Content-Type','application/json');
    
 }
 
+if(req.url=='/writeData' && req.method=="GET"){
+  
+res.setHeader('Content-Type','application/json');
+   const sumData=writeData();
+     res.end(JSON.stringify({msg:sumData}))
+   
+}
 // if(req.url=='/data' && req.method=="POST"){
 //    res.setHeader('Content-Type','application/json');
 //     res.end(JSON.stringify({msg:"Post method for data insertion"})); 
